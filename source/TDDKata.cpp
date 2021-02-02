@@ -4,8 +4,9 @@ int TDDKata(std::string str)
 {
 	std::string temp = "";
 	std::vector<int> num;
-	char delimiter{};
+	std::string delimiter{};
 	int digit = 0;
+	int count = 0;
 	int total = 0;
 	
 	//Kata 1: An empty string returns zero
@@ -15,17 +16,22 @@ int TDDKata(std::string str)
 	int index = 0;
 	if (str[0] == '/' && str[1] == '/')
 	{
+		//count++;
 		index = 3;
-		if (str[index-1] == '[')
+		if (str[index - 1] == '[')
+		{
 			while (str[index] != ']')
 			{
-				++index;
 				delimiter += str[index];
+				++index;
+				++count;
 			}
+			++index;
+		}
 		else
 			delimiter = str[2];
 	}
-
+	size_t found = str.find(delimiter);
 	//Kata 2-5: addings numbers that are comma or newline delimited
 	for (index; index < str.length(); ++index)
 	{	
@@ -38,17 +44,24 @@ int TDDKata(std::string str)
 		{
 			std::cout << "[ERROR] Negative number entered." << std::endl;
 		}
-
 		if (isdigit(str[index]))
 		{
 			digit++;
 			temp += str[index];
 		}
-		else if (str[index] == ',' || str[index] == '\n' || str[index] == delimiter)
+		//   //[$&%]657$&%9
+		/*
+		
+		
+		
+		*/
+		else if (str[index] == ',' || str[index] == '\n' || (found = str.find(delimiter, found + 1)) == index)
 		{
 			num.push_back(std::stoi(temp));
 			temp = "";
 			digit = 0;
+			if(count > 1)
+				index += (count-1);
 		}
 		
 		if (digit == 4)
