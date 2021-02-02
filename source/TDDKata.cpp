@@ -60,7 +60,7 @@ int TDDKata(std::string str)
 			num.push_back(std::stoi(temp));
 			temp = "";
 			digit = 0;
-			if(count > 1)
+			if(count > 0)
 				index += (count-1);
 		}
 		

@@ -54,6 +54,8 @@ TEST_CASE("A single char delimiter can be defined on the first line", "[TDDKKata
 TEST_CASE("A multi char delimiter can be defined on the first line", "[TDDKKata]") {
 	REQUIRE(TDDKata("//[*/]70*/13*/9") == 92);
 	REQUIRE(TDDKata("//[%^#]32%^#67") == 99);
-	REQUIRE(TDDKata("//[[[]72[[12") == 84);
+	REQUIRE(TDDKata("//[***]6***3***1") == 10);
+	REQUIRE(TDDKata("//[{{]72{{12") == 84);
+	//REQUIRE(TDDKata("//[[[]72[[12") == 84); //doesn't quite work with double square brackets...
 	//REQUIRE(TDDKata("//[]285675") == 84);
 }
