@@ -30,3 +30,10 @@ TEST_CASE("Three numbers, delimited either way, returns the sum", "[TDDKKata]") 
 	REQUIRE(TDDKata("10\n20\n30") == 60);
 	REQUIRE(TDDKata("10\n20,30") == 60);
 }
+
+TEST_CASE("Negative numbers throw an exception", "[TDDKKata]") {
+	REQUIRE_THROWS(TDDKata("-7"));
+	REQUIRE_NOTHROW(TDDKata("987"));
+	REQUIRE_THROWS(TDDKata("33,-56"));
+	REQUIRE_THROWS(TDDKata("65\n-8\n49"));
+}

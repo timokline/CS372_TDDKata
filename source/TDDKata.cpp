@@ -13,6 +13,16 @@ int TDDKata(std::string str)
 	//Kata 2-5: addings numbers that are comma or newline delimited
 	for (int i = 0; i < str.length(); i++)
 	{
+		try
+		{
+			if (str[i] == '-')
+				throw str[i];
+		}
+		catch (char c)
+		{
+			std::cout << "[ERROR] Negative number entered." << std::endl;
+		}
+
 		if (isdigit(str[i]))
 			temp += str[i];
 		else if (str[i] == ',' || str[i] == '\n')
