@@ -4,18 +4,38 @@ int TDDKata(std::string str)
 {
 	std::string temp = "";
 	std::vector<int> num;
-	std::vector<char> delim;
+	std::vector<std::string> delim;
 	int total = 0;
 	int start = 0;
-	
+
 	//Kata 1: An empty string returns zero
 	if (str == "")
 		return 0;
-	
+
 	if (str[0] == '/' && str[1] == '/')
 	{
-		delim.push_back(str[2]);
-		start = 3;
+		if (str[2] == '[') //Multi-Character
+		{
+			for (int i = 3; i < str.length(); i++)
+			{
+				if (str[i] == ']')
+				{
+					delim.push_back(temp);
+					start += temp.length() + 4;
+					temp = "";
+					i = str.length();
+				}
+				else
+					temp.push_back(str[i]);
+			}
+		}
+		else //Single-Character
+		{
+			temp.push_back(str[2]);
+			delim.push_back(temp);
+			start += 3;
+			temp = "";
+		}
 	}
 
 	//Kata 2-6: addings numbers that are comma or newline delimited
@@ -29,20 +49,25 @@ int TDDKata(std::string str)
 			temp = "";
 		}
 		else if (str[i] == '-' && isdigit(str[i + 1])) //Negative number tester
+			throw str[i];
+
+		else if (delim.size() > 0 && str[i] == delim.back()[0])
 		{
-			try
+			for (int n = 0; n < delim[0].length(); n++)
 			{
-				throw -1;
+				if (delim[0][n] != str[i + n])
+				{
+					total++;
+				}
 			}
-			catch (int e)
+			if (total == 0)
 			{
-				return e;
+				num.push_back(std::stoi(temp));
+				temp = "";
 			}
-		}
-		else if (delim.size() > 0 && str[i] == delim.back())
-		{
-			num.push_back(std::stoi(temp));
-			temp = "";
+			else
+				total = 0;
+			
 		}
 
 		if (num.size() > 0 && num.back() > 1000) //Ignoring numbers greater than 1000

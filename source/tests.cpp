@@ -1,7 +1,6 @@
 #include "catch.hpp"
 #include "TDDKata.h"
 
-
 TEST_CASE("An empty string returns zero", "[TDDKKata]") {
 	REQUIRE(TDDKata("") == 0);
 }
@@ -33,11 +32,11 @@ TEST_CASE("Three numbers, delimited either way, returns the sum", "[TDDKKata]") 
 }
 
 TEST_CASE("Negative numbers throw an exception", "[TDDKKata]") {
-	REQUIRE(TDDKata("-2") == -1);
-	REQUIRE(TDDKata("-3,7") == -1);
-	REQUIRE(TDDKata("6\n-1") == -1);
-	REQUIRE(TDDKata("10\n-20-,30") == -1);
-	REQUIRE(TDDKata("2-") != -1);
+	REQUIRE_THROWS(TDDKata("-2"));
+	REQUIRE_THROWS(TDDKata("-3,7"));
+	REQUIRE_THROWS(TDDKata("6\n-1"));
+	REQUIRE_THROWS(TDDKata("10\n-20-,30"));
+	REQUIRE_NOTHROW(TDDKata("2-"));
 }
 
 TEST_CASE("Numbers greater than 1000 are ignored", "[TDDKKata]") {
@@ -45,11 +44,16 @@ TEST_CASE("Numbers greater than 1000 are ignored", "[TDDKKata]") {
 	REQUIRE(TDDKata("25,10010") == 25);
 	REQUIRE(TDDKata("5\n2500") == 5);
 	REQUIRE(TDDKata("5\n2500,6") == 11);
-	REQUIRE(TDDKata("5\n2500-2") == -1);
 }
 
 TEST_CASE("A single char delimiter can be defined on the first line", "[TDDKKata]") {
 	REQUIRE(TDDKata("//!14!13") == 27);
 	REQUIRE(TDDKata("//%23%6%7000") == 29);
 	REQUIRE(TDDKata("//;72;4\n9,72") == 157);
+}
+
+TEST_CASE("A multi char delimiter can be defined on the first line", "[TDDKKata]") {
+	REQUIRE(TDDKata("//[!!]14!!13") == 27);
+	REQUIRE(TDDKata("//[%%]23,6%%7000") == 29);
+	REQUIRE(TDDKata("//[@#$]72,4@#$9@#$72") == 157);
 }
