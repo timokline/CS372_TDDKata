@@ -15,12 +15,19 @@ int TDDKata(std::string str)
 	int index = 0;
 	if (str[0] == '/' && str[1] == '/')
 	{
-		delimiter = str[2];
 		index = 3;
+		if (str[index-1] == '[')
+			while (str[index] != ']')
+			{
+				++index;
+				delimiter += str[index];
+			}
+		else
+			delimiter = str[2];
 	}
 
 	//Kata 2-5: addings numbers that are comma or newline delimited
-	for (index; index < str.length(); index++)
+	for (index; index < str.length(); ++index)
 	{	
 		try
 		{
