@@ -31,8 +31,18 @@ int TDDKata(std::string str)
 				return e;
 			}
 		}
+
+		if (num.size() > 0 && num.back() > 1000) //Ignoring numbers greater than 1000
+		{
+			num.pop_back();
+		}
 	}
+
 	num.push_back(std::stoi(temp));
+	if (num.size() > 0 && num.back() > 1000) //Ignoring numbers greater than 1000
+	{
+		num.pop_back();
+	}
 
 	for (auto& n : num) //Adding all the numbers up
 		total += n;
