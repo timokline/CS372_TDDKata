@@ -3,6 +3,7 @@
 
 int TDDKata(std::string str)
 {
+	std::string delimiter1 = ",", delimiter2 = "\n";
 	if (str == "")
 	{
 		return 0;
