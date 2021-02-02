@@ -37,3 +37,9 @@ TEST_CASE("Negative numbers throw an exception", "[TDDKKata]") {
 	REQUIRE_THROWS(TDDKata("33,-56"));
 	REQUIRE_THROWS(TDDKata("65\n-8\n49"));
 }
+
+TEST_CASE("Numbers greater than 1000 are ignored", "[TDDKKata]") {
+	REQUIRE(TDDKata("999, 1") == 1000);
+	REQUIRE(TDDKata("365\n1001\n35") == 400);
+	REQUIRE(TDDKata("1000") == 0);
+}

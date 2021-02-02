@@ -4,6 +4,7 @@ int TDDKata(std::string str)
 {
 	std::string temp = "";
 	std::vector<int> num;
+	int digit = 0;
 	int total = 0;
 	
 	//Kata 1: An empty string returns zero
@@ -24,11 +25,19 @@ int TDDKata(std::string str)
 		}
 
 		if (isdigit(str[i]))
+		{
+			digit++;
 			temp += str[i];
+		}
 		else if (str[i] == ',' || str[i] == '\n')
 		{
 			num.push_back(std::stoi(temp));
 			temp = "";
+		}
+		else if (digit == 4)
+		{
+			temp = "";
+			i++;
 		}
 	}
 	num.push_back(std::stoi(temp));
