@@ -1,4 +1,3 @@
-
 #include "TDDKata.h"
 
 int TDDKata(std::string str)
