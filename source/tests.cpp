@@ -57,3 +57,9 @@ TEST_CASE("A multi char delimiter can be defined on the first line", "[TDDKKata]
 	REQUIRE(TDDKata("//[%%]23,6%%7000") == 29);
 	REQUIRE(TDDKata("//[@#$]72,4@#$9@#$72") == 157);
 }
+
+TEST_CASE("Many single or multi-char delimiters can be defined", "[TDDKKata]") {
+	REQUIRE(TDDKata("//[!!]//[xc]14!!13xc15") == 42);
+	REQUIRE(TDDKata("//[%%]//[u]//[^!(]23,6%%5^!(17u6") == 57);
+	REQUIRE(TDDKata("//[@]//[yz]72,4@9yz72yz1") == 158);
+}

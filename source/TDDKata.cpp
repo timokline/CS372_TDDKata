@@ -4,7 +4,7 @@ int TDDKata(std::string str)
 {
 	std::string temp = "";
 	std::vector<int> num;
-	std::vector<std::string> delim;
+	std::vector<std::string> delim{ ",", "\n" };
 	int total = 0;
 	int start = 0;
 
@@ -12,62 +12,73 @@ int TDDKata(std::string str)
 	if (str == "")
 		return 0;
 
-	if (str[0] == '/' && str[1] == '/')
+	//Finding delimiters
+	for (int i = 0; i < str.length(); i++)
 	{
-		if (str[2] == '[') //Multi-Character
+		if (isdigit(str[i]))
 		{
-			for (int i = 3; i < str.length(); i++)
+			break;
+		}
+		if (str[0] == '/' && str[1] == '/')
+		{
+			if (str[2] == '[') //Multi-Character
 			{
-				if (str[i] == ']')
+				for (int j = i + 3; j < str.length(); j++)
 				{
-					delim.push_back(temp);
-					start += temp.length() + 4;
-					temp = "";
-					i = str.length();
+					if (str[j] == ']')
+					{
+						delim.push_back(temp);
+						start += temp.length() + 4;
+						i += temp.length() + 3;
+						temp = "";
+						j = str.length();
+					}
+					else
+						temp.push_back(str[j]);
 				}
-				else
-					temp.push_back(str[i]);
 			}
+			else //Single-Character
+			{
+				temp.push_back(str[2]);
+				delim.push_back(temp);
+				start += 3;
+				temp = "";
+				break;
+			}
+			
 		}
-		else //Single-Character
-		{
-			temp.push_back(str[2]);
-			delim.push_back(temp);
-			start += 3;
-			temp = "";
-		}
-	}
 
-	//Kata 2-6: addings numbers that are comma or newline delimited
+	}
+	
+	//Extracting numbers with delimeters
 	for (int i = start; i < str.length(); i++)
 	{
 		if (isdigit(str[i])) //If the character is a digit
 			temp += str[i];
-		else if (str[i] == ',' || str[i] == '\n') //If the character is a comma or a new line
-		{
-			num.push_back(std::stoi(temp));
-			temp = "";
-		}
+
 		else if (str[i] == '-' && isdigit(str[i + 1])) //Negative number tester
 			throw str[i];
 
-		else if (delim.size() > 0 && str[i] == delim.back()[0])
+		for (auto& n : delim) //Checking for delimeters
 		{
-			for (int n = 0; n < delim[0].length(); n++)
+			if (str[i] == n[0])
 			{
-				if (delim[0][n] != str[i + n])
+				for (int j = 0; j < n.length(); j++)
 				{
-					total++;
+					if (n[j] != str[i + j])
+					{
+						total++;
+					}
 				}
+				if (total == 0)
+				{
+					num.push_back(std::stoi(temp));
+					temp = "";
+				}
+				else
+					total = 0;
 			}
-			if (total == 0)
-			{
-				num.push_back(std::stoi(temp));
-				temp = "";
-			}
-			else
-				total = 0;
-			
+
 		}
 
 		if (num.size() > 0 && num.back() > 1000) //Ignoring numbers greater than 1000
