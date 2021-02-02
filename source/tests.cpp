@@ -3,7 +3,6 @@
 
 TEST_CASE("An empty string returns zero", "[TDDKKata]") {
 	REQUIRE(TDDKata("") == 0);
-	REQUIRE(TDDKata("empty string") == 1);
 }
 
 TEST_CASE("A single number returns the value", "[TDDKKata]") {
@@ -19,9 +18,9 @@ TEST_CASE("Two numbers, comma delimited, returns the sum", "[TDDKKata]") {
 }
 
 TEST_CASE("Two numbers, newline delimited, returns the sum", "[TDDKKata]") {
-	REQUIRE(TDDKata("0\n1") == 1);
-	REQUIRE(TDDKata("25\n5") == 30);
-	REQUIRE(TDDKata("5\n10") == 15);
+	REQUIRE(TDDKata("0\1") == 1);
+	REQUIRE(TDDKata("25\5") == 30);
+	REQUIRE(TDDKata("5\10") == 15);
 }
 
 TEST_CASE("Three numbers, delimited either way, returns the sum", "[TDDKKata]") {
