@@ -28,4 +28,5 @@ TEST_CASE("Three numbers, delimited either way, returns the sum", "[TDDKKata]") 
 	REQUIRE(TDDKata("10,20,30") == 60);
 	REQUIRE(TDDKata("3\n5\n2") == 10);
 	REQUIRE(TDDKata("10\n20\n30") == 60);
+	REQUIRE(TDDKata("10\n20,30") == 60);
 }
