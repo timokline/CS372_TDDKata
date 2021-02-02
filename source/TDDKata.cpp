@@ -4,6 +4,7 @@ int TDDKata(std::string str)
 {
 	std::string temp = "";
 	std::vector<int> num;
+	char delimiter{};
 	int digit = 0;
 	int total = 0;
 	
@@ -11,25 +12,32 @@ int TDDKata(std::string str)
 	if (str == "")
 		return 0;
 	
-	//Kata 2-5: addings numbers that are comma or newline delimited
-	for (int i = 0; i < str.length(); i++)
+	int index = 0;
+	if (str[0] == '/' && str[1] == '/')
 	{
+		delimiter = str[2];
+		index = 3;
+	}
+
+	//Kata 2-5: addings numbers that are comma or newline delimited
+	for (index; index < str.length(); index++)
+	{	
 		try
 		{
-			if (str[i] == '-')
-				throw str[i];
+			if (str[index] == '-')
+				throw str[index];
 		}
 		catch (char str[])
 		{
 			std::cout << "[ERROR] Negative number entered." << std::endl;
 		}
 
-		if (isdigit(str[i]))
+		if (isdigit(str[index]))
 		{
 			digit++;
-			temp += str[i];
+			temp += str[index];
 		}
-		else if (str[i] == ',' || str[i] == '\n')
+		else if (str[index] == ',' || str[index] == '\n' || str[index] == delimiter)
 		{
 			num.push_back(std::stoi(temp));
 			temp = "";
