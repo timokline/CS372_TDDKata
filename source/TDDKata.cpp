@@ -18,7 +18,7 @@ int TDDKata(std::string str)
 			if (str[i] == '-')
 				throw str[i];
 		}
-		catch (char c)
+		catch (char str[])
 		{
 			std::cout << "[ERROR] Negative number entered." << std::endl;
 		}
