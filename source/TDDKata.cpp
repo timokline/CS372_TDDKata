@@ -33,11 +33,12 @@ int TDDKata(std::string str)
 		{
 			num.push_back(std::stoi(temp));
 			temp = "";
+			digit = 0;
 		}
-		else if (digit == 4)
+		
+		if (digit == 4)
 		{
-			temp = "";
-			i++;
+			temp = "0";
 		}
 	}
 	num.push_back(std::stoi(temp));
