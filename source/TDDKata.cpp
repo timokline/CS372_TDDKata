@@ -4,14 +4,22 @@ int TDDKata(std::string str)
 {
 	std::string temp = "";
 	std::vector<int> num;
+	std::vector<char> delim;
 	int total = 0;
+	int start = 0;
 	
 	//Kata 1: An empty string returns zero
 	if (str == "")
 		return 0;
 	
+	if (str[0] == '/' && str[1] == '/')
+	{
+		delim.push_back(str[2]);
+		start = 3;
+	}
+
 	//Kata 2-6: addings numbers that are comma or newline delimited
-	for (int i = 0; i < str.length(); i++)
+	for (int i = start; i < str.length(); i++)
 	{
 		if (isdigit(str[i])) //If the character is a digit
 			temp += str[i];
@@ -30,6 +38,11 @@ int TDDKata(std::string str)
 			{
 				return e;
 			}
+		}
+		else if (delim.size() > 0 && str[i] == delim.back())
+		{
+			num.push_back(std::stoi(temp));
+			temp = "";
 		}
 
 		if (num.size() > 0 && num.back() > 1000) //Ignoring numbers greater than 1000

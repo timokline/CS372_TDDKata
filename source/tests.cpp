@@ -1,6 +1,7 @@
 #include "catch.hpp"
 #include "TDDKata.h"
 
+
 TEST_CASE("An empty string returns zero", "[TDDKKata]") {
 	REQUIRE(TDDKata("") == 0);
 }
@@ -45,4 +46,10 @@ TEST_CASE("Numbers greater than 1000 are ignored", "[TDDKKata]") {
 	REQUIRE(TDDKata("5\n2500") == 5);
 	REQUIRE(TDDKata("5\n2500,6") == 11);
 	REQUIRE(TDDKata("5\n2500-2") == -1);
+}
+
+TEST_CASE("A single char delimiter can be defined on the first line", "[TDDKKata]") {
+	REQUIRE(TDDKata("//!14!13") == 27);
+	REQUIRE(TDDKata("//%23%6%7000") == 29);
+	REQUIRE(TDDKata("//;72;4\n9,72") == 157);
 }
